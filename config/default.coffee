@@ -8,3 +8,4 @@ module.exports =
   mongo:
     uri: 'mongodb://localhost/wechatY'
   FromUserName: 'oPk5NsykQOZC2OS4ttlaz0b4NRDA'
+#  FromUserName: 'oPk5Ns5T_OHKiUZxuNlHUUMcnp7A'#yang

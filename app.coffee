@@ -37,8 +37,12 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   message = req.weixin
   logger.info message
   messageModel.create {content: message}, (err, doc) ->
-    console.log doc
-  res.reply '自动回复被你们玩坏了，正在修理，过几天再来玩吧，肯定会变得更好玩的'
+    if err
+      console.log err
+  if message.FromUserName is config.FromUserName
+    res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
+  else
+    res.reply '自动回复被玩坏了，正在修理……'
 )
 
 app.listen port

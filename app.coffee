@@ -63,12 +63,12 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
         return res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
       else
         if name
-          if messageCountDoc.count < 5
+          if messageCountDoc.count is 1
             res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count
           else
             res.reply _s.sprintf Const.KnownOthers, name, messageCountDoc.count
         else
-          if messageCountDoc.count < 5
+          if messageCountDoc.count is 1
             res.reply _s.sprintf Const.Unknown1st, messageCountDoc.count
           else
             res.reply _s.sprintf Const.UnknownOthers, messageCountDoc.count

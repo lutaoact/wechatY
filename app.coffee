@@ -20,6 +20,7 @@ messageModel = mongoose.model 'message', messageSchema
 messageCountSchema = new Schema
   openid: String
   count: Number
+  name: String
   date: Date
 messageCountModel = mongoose.model 'message_count', messageCountSchema
 
@@ -47,9 +48,13 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
     if err
       console.log err
   openid = message.FromUserName
+  name = config.openid2nameMap[openid]
+
+  update = {$inc: {count: 1}, $set: {date: new Date()}}
+  update.name = name if name
   messageCountModel.findOneAndUpdate(
     {openid: openid}
-    {$inc: {count: 1}, $set: {date: new Date()}}
+    update
     {upsert: true}
     (err, messageCountDoc) ->
       if err
@@ -57,7 +62,6 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
       if openid is config.FromUserName
         return res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
       else
-        name = config.openid2nameMap[openid]
         if name
           if messageCountDoc.count < 5
             res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count

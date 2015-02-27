@@ -39,9 +39,13 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
     if err
       console.log err
   if message.FromUserName is config.FromUserName
-    res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
+    return res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
   else
-    res.reply '自动回复被玩坏了，正在修理……'
+    name = config.openid2nameMap[message.FromUserName]
+    if name
+      res.reply "我是这里的小精灵，我认识你，主人说，你叫#{name}，我刚出生不久，所以什么都不懂，你过段时间再来找我玩吧！"
+    else
+      res.reply "我是这里的小精灵，我不认识你，主人说，不要跟陌生人乱说话，我刚出生不久，所以什么都不懂，你过段时间再来找我玩吧！说不定我就能知道你是睡啦。"
 )
 
 app.listen port

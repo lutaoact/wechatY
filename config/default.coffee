@@ -1,7 +1,7 @@
 module.exports =
   hello: 'girlfriend'
   appName: 'wechatY'
-  port: 9000
+  port: 8061
   morgan:
     accessLog: '/data/log/wechatY.access.log'
     errorLog : '/data/log/wechatY.error.log'

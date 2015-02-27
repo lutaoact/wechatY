@@ -59,12 +59,12 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
       else
         name = config.openid2nameMap[openid]
         if name
-          if messageCountDoc.count is 1
+          if messageCountDoc.count < 5
             res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count
           else
             res.reply _s.sprintf Const.KnownOthers, name, messageCountDoc.count
         else
-          if messageCountDoc.count is 1
+          if messageCountDoc.count < 5
             res.reply _s.sprintf Const.Unknown1st, messageCountDoc.count
           else
             res.reply _s.sprintf Const.UnknownOthers, messageCountDoc.count

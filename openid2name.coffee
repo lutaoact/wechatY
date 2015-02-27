@@ -4,5 +4,5 @@ module.exports =
   'oPk5Ns-J0D7C0J5FuwopHIKtNCj8': '风雪' #fengxue
 #  'oPk5NsyD5zDJq8KL8iZqmi3kGw74': '张涛' #zhangtao
 #  'oPk5NsxhV8dj7v6aNAt_-l0aSjiU': '谢丹' #xiedan
-#  'oPk5Ns46QDL1sFmItZJxGDPrKyMc': '路强' #luqiang
-#  'oPk5NszwLuvFYCNxidvOOd_sIXvo': '陈圆'
+  'oPk5Ns46QDL1sFmItZJxGDPrKyMc': '路强' #luqiang
+  'oPk5NszwLuvFYCNxidvOOd_sIXvo': '陈圆'

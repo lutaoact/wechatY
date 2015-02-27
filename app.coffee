@@ -32,7 +32,6 @@ logger.info "server listening on port #{port}..."
 app.get '/', (req, res) ->
   res.send hello: 'girlfriend'
 
-#需要设置端口转发，对9000端口的访问都转发到80
 app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   message = req.weixin
   logger.info message

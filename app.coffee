@@ -55,7 +55,13 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   if message.MsgType is 'text'
     keyReply = keyReplyMap[message.Content]
     if keyReply
-      return res.reply keyReply
+      if message.Content is '爱你'
+        if message.FromUserName is config.Yang
+          return res.reply keyReply
+        else
+          return res.reply "主人说，这篇不能看，不好意思……"
+      else
+        return res.reply keyReply
 
   openid = message.FromUserName
   name = config.openid2nameMap[openid]

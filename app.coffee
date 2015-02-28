@@ -42,6 +42,7 @@ app.get '/', (req, res) ->
   res.send hello: 'girlfriend'
 
 WordsForYang = require './lib/WordsForYang.json'
+keyReplyMap = require './lib/keyReply'
 
 app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   message = req.weixin
@@ -49,6 +50,13 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   messageModel.create {content: message}, (err, doc) ->
     if err
       console.log err
+
+  # 处理关键词回复
+  if message.MsgType is 'text'
+    keyReply = keyReplyMap[message.Content]
+    if keyReply
+      return res.reply keyReply
+
   openid = message.FromUserName
   name = config.openid2nameMap[openid]
 
@@ -61,7 +69,7 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
     (err, messageCountDoc) ->
       if err
         return logger.info err
-      if openid is config.FromUserName
+      if openid is config.Yang
         if messageCountDoc.count is 1
           return res.reply WordsForYang[0]
         else
@@ -72,14 +80,14 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
       else
         if name
           if messageCountDoc.count is 1
-            res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count
+            return res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count
           else
-            res.reply _s.sprintf Const.KnownOthers, name, messageCountDoc.count
+            return res.reply _s.sprintf Const.KnownOthers, name, messageCountDoc.count
         else
           if messageCountDoc.count is 1
-            res.reply _s.sprintf Const.Unknown1st, messageCountDoc.count
+            return res.reply _s.sprintf Const.Unknown1st, messageCountDoc.count
           else
-            res.reply _s.sprintf Const.UnknownOthers, messageCountDoc.count
+            return res.reply _s.sprintf Const.UnknownOthers, messageCountDoc.count
   )
 )
 

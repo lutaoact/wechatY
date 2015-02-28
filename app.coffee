@@ -44,6 +44,7 @@ app.get '/', (req, res) ->
 WordsForYang = require './lib/WordsForYang.json'
 keyReplyMap = require './lib/keyReply'
 globalCounter = {}
+moment = require 'moment'
 
 app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   message = req.weixin
@@ -84,6 +85,14 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
         return res.reply ''
       else
         globalCounter[openid].ts = nowTimestamp
+        hour = moment().hours()
+        if hour >= 22 or hour < 1
+          return res.reply Const.GoToBedEarly
+        if hour >= 1 and hour < 7
+          return res.reply Const.TooLate
+        if hour < 10
+          return res.reply Const.SoEarly
+
         return res.reply Const.WhatAreYouSaying #不知道你在说什么
   else
     if globalCounter[openid].count++ > 1 and nowTimestamp - globalCounter[openid].ts < 60 * 10 #10分钟

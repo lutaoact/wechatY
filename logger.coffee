@@ -8,7 +8,7 @@ log4js.configure
       pattern   : "%d{ISO8601} %[%-5p%] - %c %m"
   ,
     type        : 'file'
-    filename    : '/data/log/wechat.log'
+    filename    : '/data/log/wechatY.log'
     layout      :
       type      : 'pattern'
       pattern   : "%d{ISO8601}\t%m"

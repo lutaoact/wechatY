@@ -8,5 +8,5 @@ module.exports =
   mongo:
     uri: 'mongodb://localhost/wechatY'
 #  FromUserName: 'oPk5NsykQOZC2OS4ttlaz0b4NRDA' #xueye
-#  FromUserName: 'oPk5Ns5T_OHKiUZxuNlHUUMcnp7A'#yang
+  FromUserName: 'oPk5Ns5T_OHKiUZxuNlHUUMcnp7A'#yang
   openid2nameMap: require '../openid2name'

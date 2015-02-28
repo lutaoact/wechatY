@@ -41,6 +41,8 @@ logger.info "server listening on port #{port}..."
 app.get '/', (req, res) ->
   res.send hello: 'girlfriend'
 
+WordsForYang = require './lib/WordsForYang.json'
+
 app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
   message = req.weixin
   logger.info message
@@ -60,7 +62,13 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
       if err
         return logger.info err
       if openid is config.FromUserName
-        return res.reply '你终于来了，我一直在等你。我是活在虚拟世界的精灵，我知道主人很喜欢你，所以我一直在等你。要跟你说很多事情，不过你暂时只能听，不能问。'
+        if messageCountDoc.count is 1
+          return res.reply WordsForYang[0]
+        else
+          if ~~message.Content #如果解析结果为正整数，则取相应的句子
+            return res.reply WordsForYang[~~message.Content] || Const.OwnerIsBack
+          else
+            return res.reply Const.WhatAreYouSaying #不知道你在说什么
       else
         if name
           if messageCountDoc.count is 1

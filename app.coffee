@@ -84,10 +84,9 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
     if ~~message.Content #如果解析结果为正整数，则取相应的句子
       return res.reply WordsForYang[~~message.Content] || Const.OwnerIsBack
     else
-      # 如果计数大于1，并且时间间隔小于10分钟，则不回复消息
       if globalCounter[openid].count++ > 1 and nowTimestamp - globalCounter[openid].ts < 60 * 10 #10分钟
         globalCounter[openid].ts = nowTimestamp
-        return res.reply ''
+        return res.reply _u.getRandomReply()
       else
         globalCounter[openid].ts = nowTimestamp
         hour = moment().hours()
@@ -98,8 +97,9 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
         if hour < 10
           return res.reply Const.SoEarly
 
-        return res.reply Const.WhatAreYouSaying #不知道你在说什么
+        return res.reply _u.getRandomReply() #随机回复
   else
+    # 如果计数大于1，并且时间间隔小于10分钟，则不回复消息
     if globalCounter[openid].count++ > 1 and nowTimestamp - globalCounter[openid].ts < 60 * 10 #10分钟
       globalCounter[openid].ts = nowTimestamp
       return res.reply ''

@@ -98,13 +98,6 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
           return res.reply Const.SoEarly
 
         return res.reply _u.getRandomReply() #随机回复
-  else
-    # 如果计数大于1，并且时间间隔小于10分钟，则不回复消息
-    if globalCounter[openid].count++ > 1 and nowTimestamp - globalCounter[openid].ts < 60 * 10 #10分钟
-      globalCounter[openid].ts = nowTimestamp
-      return res.reply ''
-    else
-      globalCounter[openid].ts = nowTimestamp
 
   update = {$inc: {count: 1}, $set: {date: new Date()}}
   update.name = name if name
@@ -119,12 +112,12 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
         if messageCountDoc.count is 1
           return res.reply _s.sprintf Const.Known1st, name, messageCountDoc.count
         else
-          return res.reply _s.sprintf Const.KnownOthers, name, messageCountDoc.count
+          return res.reply (_s.sprintf Const.Known, name, messageCountDoc.count) + _u.getRandomReply()
       else
         if messageCountDoc.count is 1
           return res.reply _s.sprintf Const.Unknown1st, messageCountDoc.count
         else
-          return res.reply _s.sprintf Const.UnknownOthers, messageCountDoc.count
+          return res.reply (_s.sprintf Const.Unknown, messageCountDoc.count) + _u.getRandomReply()
   )
 )
 

@@ -4,7 +4,8 @@ Const = require './Const'
 keywordsMap = require './keywords.json'
 keys = _.keys keywordsMap
 values = _.values keywordsMap
-randomValues = values.concat [Const.WhatAreYouSaying]
+randomWords = require './randomWords'
+randomValues = values.concat randomWords
 
 exports.getReply = (text) ->
   for key in keys

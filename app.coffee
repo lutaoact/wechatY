@@ -7,6 +7,7 @@ console.log config
 compose = require('composable-middleware')
 _ = require 'lodash'
 _s = require 'underscore.string'
+_u = require './lib/util'
 Const = require './lib/Const'
 
 mongoose = require 'mongoose'
@@ -68,6 +69,10 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
           return res.reply "主人说，这篇不能看，不好意思……"
       else
         return res.reply keyReply
+
+    #如果在回复的文本里找到了关键字
+    if _u.getReply message.Content
+      return res.reply _u.getReply message.Content
 
   openid = message.FromUserName
   name = config.openid2nameMap[openid]

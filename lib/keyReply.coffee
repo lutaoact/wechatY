@@ -18,7 +18,7 @@ module.exports =
     url: 'http://mp.weixin.qq.com/s?__biz=MzAwODE4Nzk2Ng==&mid=204812938&idx=1&sn=9b6353b9d2c1c826cd6008be95a2d88b#rd'
   ]
   '童年': [
-    title: '不堪的童年'
+    title: '水十二：不堪的童年'
     description: '战火摧毁了童年，而我却幸运般保住了最后一点残存的童真！有朝一日，成家娶妻为人父，绝不能让自己的孩子承受自己厌恶的种种。'
     picurl: 'https://mmbiz.qlogo.cn/mmbiz/hb0fNLLZtnNKOWS50TezPtsgqdAG6hqz9Svicuq2BmdDzicqTNkVzqBnJRyKY44N1qeuTrAoU2bbTgV46ghAMUHQ/0'
     url: 'http://mp.weixin.qq.com/s?__biz=MzAwODE4Nzk2Ng==&mid=204853993&idx=1&sn=ce927e95da5576aa9a04868750a94b3d#rd'

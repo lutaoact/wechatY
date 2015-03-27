@@ -64,15 +64,20 @@ app.use '/wechat', wechat('xsdmyxtzzyyjsx', (req, res) ->
     if keyReply
       if message.Content is '爱你'
         if message.FromUserName is config.Yang
-          return res.reply keyReply
+          return res.reply "主人心情不太好，暂时没法跟大家聊天了……"
         else
           return res.reply "主人说，这篇不能看，不好意思……"
       else
         return res.reply keyReply
 
     #如果在回复的文本里找到了关键字
-    if _u.getReply message.Content
-      return res.reply _u.getReply message.Content
+#    if _u.getReply message.Content
+#      return res.reply _u.getReply message.Content
+
+  if message.FromUserName is config.Yang
+    return res.reply "主人心情不太好，暂时没法跟大家聊天了……"
+  else
+    return res.reply "这个，这个，主人不在，他看到留言之后，会回复的，多谢关注。"
 
   openid = message.FromUserName
   name = config.openid2nameMap[openid]

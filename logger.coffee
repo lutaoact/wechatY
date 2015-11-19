@@ -15,7 +15,7 @@ log4js.configure
     category    : 'WECHAT'
   ]
 
-logger = log4js.getLogger 'WECHAT'
+logger = log4js.getLogger 'WECHAT_Y'
 logger.setLevel 'INFO'
 
 exports.logger = logger
